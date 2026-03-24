@@ -21,6 +21,21 @@
             require-prior-idle-ms = <100>;
             bindings = <&kp>, <&kp>;
         };
+	tog_on: toggle_layer_on_only {
+		compatible = "zmk,behavior-toggle-layer";
+            	#binding-cells = <1>;
+            	display-name = "toggle layer on";
+            	toggle-mode = "on";
+            	locking;
+	};
+
+	tog_off: toggle_layer_off_only {
+		compatible = "zmk,behavior-toggle-layer";
+            	#binding-cells = <1>;
+            	display-name = "toggle layer on";
+            	toggle-mode = "off";
+            	locking;
+	};
     };
 
 
@@ -38,7 +53,7 @@
         //│  Z       │  X       │  C       │  V       │  B       │   │  N       │  M       │ , <      │ . >      │ / ?      │
             &kp Z      &kp X      &kp C      &kp V      &kp B          &kp N      &kp M      &kp COMMA  &kp DOT    &kp FSLH
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                            &lt 2 TAB   &kp ENTER     &lt 3 ENTER  &lt 1 BSPC
+                                            &lt 2 TAB   &kp ENTER     &tog_on 3      &tog_on 1
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
             >;
         };
@@ -47,15 +62,15 @@
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
         //│ INSERT   │  1       │  2       │  3       │          │   │ HOME     │ PAGE DN  │ PAGE UP  │ END      │  :       │
-            &kp INS    &kp N1     &kp N2     &kp N3     &trans         &kp HOME   &kp PG_DN  &kp PG_UP  &kp END    &kp COLON
+            &kp INS    &kp N1     &kp N2     &kp N3     &trans         &kp HOME   &mkp LCLK  &mkp RCLK  &mkp MCLK    &kp COLON
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│ DELETE   │  4       │  5       │  6       │          │   │ LEFT     │ DOWN     │ UP       │ RIGHT    │  ;       │
-            &kp DEL    &kp N4     &kp N5     &kp N6     &trans         &kp LEFT   &kp DOWN   &kp UP   &kp RIGHT   &kp SEMI
+            &kp DEL    &kp N4     &kp N5     &kp N6     &trans         &kp LEFT  &mmv MOVE_UP &mmv MOVE_DOWN  &mmv MOVE_LEFT   &mmv MOVE_RIGHT
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│ CAPS     │  7       │  8       │  9       │  0       │   │          │          │          │          │          │
            &caps_word  &kp N7     &kp N8     &kp N9     &kp N0         &trans   &msc SCRL_UP &msc SCRL_DOWN   &msc SCRL_LEFT    &msc SCRL_RIGHT
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                             &trans     &kp ESC        &trans     &trans
+                                             &trans     &kp ESC        &tog_off 1     &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
             >;
         };
@@ -89,7 +104,7 @@
         //│          │          │          │ CLEAR BT │PROFILE 2 │   │          │          │          │          │          │
             &trans     &trans     &trans    &bt BT_CLR &bt BT_SEL 2    &trans     &trans     &trans     &trans     &trans
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                             &trans     &trans         &trans     &trans
+                                             &trans     &trans         &tog_off 3     &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
             >;
         };
