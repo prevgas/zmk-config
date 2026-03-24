@@ -9,7 +9,7 @@
 // Home row mods macro
 #define HRML(k1,k2,k3,k4) &ht LSHFT k1  &ht LALT k2  &ht LCTRL k3  &ht LGUI k4
 #define HRMR(k1,k2,k3,k4) &ht RGUI k1  &ht RCTRL k2  &ht RALT k3  &ht RSHFT k4
-#define BLUTH 3
+#define BLUTH 3V
 / {
     behaviors {
         ht: hold_tap {
@@ -35,6 +35,45 @@
             	toggle-mode = "off";
 	};
     };
+/ {
+    macros {
+        // 0 params macro
+        macro_copy: macro_copy{
+            // ...
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>; // Must be 0
+            bindings = <&macro_press &kp LCTRL>
+			,<&macro_tab &kp C>
+			,<&macro_release &kp LCTRL>
+			;
+        };
+
+        macro_paste: macro_paste{
+            // ...
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>; // Must be 0
+            bindings = <&macro_press &kp LCTRL>
+			,<&macro_tab &kp V>
+			,<&macro_release &kp LCTRL>
+			;
+        };
+        // 1 param macro
+        my_one_param_macro: my_one_param_macro {
+            // ...
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>; // Must be 1
+            bindings = /* ... */;
+        };
+
+        // 2 params macro
+        my_two_param_macro: my_two_param_macro {
+            // ...
+            compatible = "zmk,behavior-macro-two-param";
+            #binding-cells = <2>; // Must be 2
+            bindings = /* ... */;
+        };
+    };
+};
 
 
     keymap {
@@ -68,7 +107,7 @@
         //│ CAPS     │  7       │  8       │  9       │  0       │   │          │          │          │          │          │
            &caps_word  &kp N7     &kp N8     &kp N9     &kp N0         &trans   &msc SCRL_LEFT &msc SCRL_UP   &msc SCRL_DOWN    &msc SCRL_RIGHT
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                             &trans     &kp ESC        &tog_off 1     &trans
+                                             &trans     &kp ESC        &tog_off 1     &tog_on 2
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
             >;
         };
@@ -85,7 +124,7 @@
         //│          │          │          │          │          │   │  &       │  _       │  +       │  │       │          │
             &trans     &trans     &trans     &trans     &trans         &kp AMPS   &kp UNDER  &kp PLUS   &kp PIPE   &trans
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                             &trans     &trans         &trans     &trans
+                                             &trans     &trans         &tog_off 2     &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
             >;
         };
