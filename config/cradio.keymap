@@ -26,7 +26,6 @@
             	#binding-cells = <1>;
             	display-name = "toggle layer on";
             	toggle-mode = "on";
-            	locking;
 	};
 
 	tog_off: toggle_layer_off_only {
@@ -34,7 +33,6 @@
             	#binding-cells = <1>;
             	display-name = "toggle layer on";
             	toggle-mode = "off";
-            	locking;
 	};
     };
 
